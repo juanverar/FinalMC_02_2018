@@ -9,8 +9,6 @@ print("-------------------------------------------------------------------------
 # 2) GRAFIQUE los datos originales y su ajuste. Guarde la grafica SIN MOSTRARLA en Ajuste.pdf. 
 
 import numpy as np
-import matplotlib
-matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 data = np.loadtxt('CircuitoRC.txt')
@@ -27,15 +25,27 @@ l_walk = np.empty((0))
 R_walk = np.append(R_walk, Rguess)
 C_walk = np.append(C_walk, Cguess)
 
-def likelihood(y_obs, y_model):
-    chi_squared = 0.5*sum((y_obs-y_model)**2)/len(x_data)
-    return np.exp(-chi_squared)
+def like(y_obs, y_model):
+    chi = 0.5*sum((y_obs-y_model)**2)/len(x_data)
+    return np.exp(-chi)
 
 def modelo(t_data, R, C):
     return (10.0*C)*(1-np.exp(-t_data/(R*C)))
 
-n_iterations = 20000
+y_m= modelo(y_data,R_walk,C_walk)
+n_it = 20000
 
+
+for i in range(20000):
+	Rn=np.random.uniform(-10.0,10.0)
+	Cn=np.random.uniform(-10.0,10.0)
+
+	alpha=like(R_walk,C_walk)/like(Rn,Cn)
+
+	if (alpha<1):
+		print R_walk,C_walk
+	else:
+		print Rn,Cn
 # Complete el codigo (puede reescribir lo anterior si prefiere que su codigo tenga otra estructura)
 # 1) IMPRIMA los mejores de valores de R y C encontrados
 # 2) GRAFIQUE los datos originales y su ajuste. Guarde la grafica SIN MOSTRARLA en Ajuste.pdf. 
