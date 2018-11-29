@@ -30,7 +30,7 @@ copy=np.copy(f)
 
 # SU FILTRO
 for i in range(len(freq)):
-	if (freq[i]>1000):
+	if ((freq[i]>1000)or(freq[i]<-1000)):
 		copy[i]=0.0
 	else:
 		copy[i]=copy[i]
