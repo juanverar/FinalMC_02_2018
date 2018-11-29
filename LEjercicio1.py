@@ -14,9 +14,22 @@ N=10
 A=(np.random.random((N,1))*10.0)-5.0
 B=(np.random.random((N,1))*10.0)-3.0
 print A, B
-print A, B
 
+suma=0.0
 
+for i in range(len(B)):
+
+	if (A[i]<B[i]):
+		suma+=1.0
+	else:
+		suma=suma
+
+##### 1 #####
+if (suma==len(A)):
+	print "A es menor que B."
+##### 2 #####
+if (suma != len(A)):
+	print "A NO es menor que B."
 
 
 
